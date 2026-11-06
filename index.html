@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sunset Realty · Rentas vacacionales en Puerto Escondido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1f1d1a;--mute:#6b665f;--line:#e8e3dc;--bg:#fbf9f6;--sun:#e2603a;--sun2:#f39a52;--card:#fff;--r:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+img{display:block}
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(251,249,246,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{max-width:1360px;margin:auto;display:flex;align-items:center;gap:16px;padding:14px 24px}
+.logo{display:flex;align-items:center;gap:10px;font-family:Fraunces,serif;font-size:20px;font-weight:600;text-decoration:none;color:var(--ink)}
+.logo i{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,var(--sun2),var(--sun));position:relative;overflow:hidden}
+.logo i:after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:#2b6f8a}
+.search{flex:1;max-width:520px;margin:auto;display:flex;align-items:center;border:1px solid var(--line);border-radius:99px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05);padding:4px 4px 4px 20px}
+.search input{flex:1;border:0;outline:0;font:inherit;font-size:14px;background:none;min-width:0}
+.search select{border:0;outline:0;font:inherit;font-size:14px;background:none;padding:0 8px;border-left:1px solid var(--line);color:var(--mute)}
+.search .go{width:38px;height:38px;border-radius:50%;background:var(--sun);color:#fff;display:grid;place-items:center;flex:none}
+.nav .cta{padding:10px 16px;border-radius:99px;font-weight:600;font-size:14px;background:var(--ink);color:#fff;text-decoration:none;white-space:nowrap}
+/* hero */
+.hero{max-width:1360px;margin:28px auto 0;padding:0 24px}
+.hero-in{position:relative;border-radius:24px;overflow:hidden;height:340px;background:#333}
+.hero-in img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.hero-in .tx{position:absolute;inset:auto 0 0 0;padding:36px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+.hero h1{font-family:Fraunces,serif;font-weight:500;font-size:clamp(28px,4vw,48px);line-height:1.05;max-width:640px}
+.hero p{margin-top:10px;opacity:.9;font-size:15px}
+/* chips */
+.bar{position:sticky;top:67px;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1360px;margin:auto;padding:14px 24px;display:flex;gap:10px;align-items:center}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:9px 14px;border:1px solid var(--line);border-radius:99px;font-size:13px;font-weight:500;background:#fff;transition:.15s}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fbtn{display:flex;gap:8px;align-items:center;padding:9px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:13px;font-weight:600;flex:none}
+.fbtn b{background:var(--sun);color:#fff;border-radius:99px;font-size:11px;padding:1px 7px;display:none}
+.view{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;flex:none;background:#fff}
+.view button{padding:9px 12px;font-size:13px}
+.view button.on{background:var(--ink);color:#fff}
+/* main */
+main{max-width:1360px;margin:auto;padding:22px 24px 80px}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+.meta h2{font-size:16px;font-weight:600}
+.meta select{font:inherit;font-size:13px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:28px 22px}
+.card{cursor:pointer}
+.ph{position:relative;aspect-ratio:1/0.95;border-radius:var(--r);overflow:hidden;background:#eee}
+.ph .track{display:flex;height:100%;transition:transform .35s ease}
+.ph img{width:100%;height:100%;object-fit:cover;flex:none}
+.ph .nv{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;opacity:0;transition:.2s;font-size:14px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.ph .p{left:10px}.ph .n{right:10px}
+.card:hover .nv{opacity:1}
+.dots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px}
+.dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55)}
+.dots span.on{background:#fff}
+.badge{position:absolute;top:12px;left:12px;background:#fff;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.badge.off{background:#1f1d1a;color:#fff}
+.fav{position:absolute;top:10px;right:10px;font-size:22px;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.fav.on{color:var(--sun)}
+.qv{position:absolute;bottom:12px;right:12px;background:rgba(255,255,255,.95);border-radius:99px;padding:6px 12px;font-size:12px;font-weight:600;opacity:0;transition:.2s}
+.card:hover .qv{opacity:1}
+.info{padding-top:12px}
+.info .t{display:flex;justify-content:space-between;gap:8px;font-weight:600;font-size:15px}
+.info .l{color:var(--mute);font-size:14px;margin-top:2px}
+.info .pr{margin-top:6px;font-size:14px}
+.info .pr b{font-weight:600}
+.card.unavail{opacity:.6}
+/* list view */
+.grid.list{grid-template-columns:1fr;gap:18px}
+.grid.list .card{display:grid;grid-template-columns:340px 1fr;gap:22px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:12px}
+.grid.list .ph{aspect-ratio:4/3}
+.grid.list .info{padding:6px 8px 6px 0;display:flex;flex-direction:column}
+.grid.list .desc{display:block}
+.desc{display:none;color:var(--mute);font-size:14px;line-height:1.55;margin-top:10px}
+.tags{display:none;flex-wrap:wrap;gap:6px;margin-top:12px}
+.grid.list .tags{display:flex}
+.tag{font-size:12px;padding:5px 10px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+.grid.list .pr{margin-top:auto;padding-top:14px;font-size:16px}
+.empty{text-align:center;padding:80px 20px;color:var(--mute)}
+.empty button{margin-top:14px;text-decoration:underline;font-weight:600;color:var(--ink)}
+/* compare table / overview */
+.ov{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;font-size:14px;border:1px solid var(--line)}
+.ov th,.ov td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+.ov th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute);background:#faf8f5;cursor:pointer}
+.ov tr:hover td{background:#fdf6f1;cursor:pointer}
+.ov td img{width:64px;height:46px;object-fit:cover;border-radius:8px}
+.ovwrap{overflow-x:auto;border-radius:16px}
+/* drawers & modals */
+.scrim{position:fixed;inset:0;background:rgba(20,18,15,.5);z-index:60;display:none;align-items:center;justify-content:center;padding:20px}
+.scrim.show{display:flex;animation:f .2s}
+@keyframes f{from{opacity:0}}
+.sheet{background:#fff;border-radius:22px;width:100%;max-width:640px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;animation:u .25s ease}
+@keyframes u{from{transform:translateY(24px);opacity:0}}
+.sh-h{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--line);font-weight:600}
+.sh-h button{font-size:20px;width:34px;height:34px;border-radius:50%}
+.sh-h button:hover{background:var(--bg)}
+.sh-b{overflow:auto;padding:6px 22px 22px}
+.sh-f{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-top:1px solid var(--line)}
+.sh-f .clr{text-decoration:underline;font-weight:600}
+.btn{background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;font-weight:600;text-decoration:none;display:inline-block}
+.btn.sun{background:linear-gradient(90deg,var(--sun),#d4473a)}
+.fs{padding:20px 0;border-bottom:1px solid var(--line)}
+.fs:last-child{border:0}
+.fs h4{font-size:16px;margin-bottom:12px}
+.range{display:flex;gap:12px;align-items:center}
+.range label{flex:1;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:12px;color:var(--mute)}
+.range input{display:block;width:100%;border:0;outline:0;font:inherit;font-size:15px;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--sun);margin-top:14px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{padding:9px 16px;border:1px solid var(--line);border-radius:99px;font-size:14px}
+.seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cks label{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer}
+.cks input{width:20px;height:20px;accent-color:var(--ink)}
+.counter{display:flex;justify-content:space-between;align-items:center;padding:6px 0}
+.counter div{display:flex;align-items:center;gap:14px}
+.counter button{width:32px;height:32px;border:1px solid var(--line);border-radius:50%;font-size:16px}
+/* detail */
+.det{max-width:980px}
+.gal{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:6px;height:380px;padding:0 22px;margin-top:6px}
+.gal img{width:100%;height:100%;object-fit:cover;border-radius:6px;cursor:zoom-in}
+.gal img:first-child{grid-row:span 2;border-radius:14px 6px 6px 14px}
+.gal.g5{grid-template-columns:2fr 1fr 1fr}.gal.g5 img:first-child{grid-row:span 2}
+.allbtn{position:absolute;right:34px;bottom:12px;background:#fff;border:1px solid var(--ink);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600}
+.allph{display:none;columns:3 220px;column-gap:8px;padding:16px 22px 0}.allph.show{display:block}.allph img{width:100%;margin-bottom:8px;border-radius:8px;cursor:zoom-in;break-inside:avoid}
+.gal.one{grid-template-columns:1fr;grid-template-rows:1fr}
+.dgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:32px;padding:24px 22px}
+.dgrid h3{font-family:Fraunces,serif;font-weight:500;font-size:28px;line-height:1.1}
+.facts{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 18px;color:var(--mute);font-size:14px}
+.dgrid p{line-height:1.65;color:#3e3a35;font-size:15px}
+.sec{margin-top:24px}
+.sec h5{font-size:16px;margin-bottom:10px}
+.am{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:14px}
+.am span:before{content:"✓ ";color:var(--sun);font-weight:700}
+.rooms{display:flex;gap:10px;overflow-x:auto}
+.room{flex:none;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;min-width:140px}
+.room b{display:block;margin-bottom:4px}
+.book{position:sticky;top:0;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 6px 24px rgba(0,0,0,.08);align-self:start}
+.book .big{font-size:22px;font-weight:700}
+.rates{margin:14px 0;font-size:13px}
+.rates div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line);gap:10px}
+.rates div span:last-child{font-weight:600;white-space:nowrap}
+.book .btn{width:100%;text-align:center}
+.small{font-size:12px;color:var(--mute);margin-top:10px;line-height:1.5}
+/* lightbox */
+.lb{position:fixed;inset:0;background:#000;z-index:80;display:none;align-items:center;justify-content:center}
+.lb.show{display:flex}
+.lb img{max-width:92vw;max-height:86vh;object-fit:contain}
+.lb button{position:absolute;color:#fff;font-size:28px;width:52px;height:52px}
+.lb .x{top:14px;right:14px}.lb .a{left:10px}.lb .b{right:10px}
+.lb .c{position:absolute;bottom:20px;color:#fff;font-size:14px}
+footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center;color:var(--mute);font-size:13px}
+footer a{color:var(--ink)}
+@media(max-width:820px){
+ .nav .cta{display:none}.search select{display:none}
+ .bar{top:63px}
+ .hero-in{height:240px}.hero-in .tx{padding:22px}
+ .grid.list .card{grid-template-columns:1fr}
+ .scrim{padding:0;align-items:flex-end}
+ .sheet{border-radius:22px 22px 0 0;max-height:94vh}
+ .gal{height:240px;grid-template-columns:1fr;grid-template-rows:1fr}
+ .gal img:not(:first-child){display:none}.gal img:first-child{border-radius:14px}
+ .dgrid{grid-template-columns:1fr}
+ .view .lbl{display:none}
+ .nv{opacity:1!important}
+}
+</style>
+</head>
+<body>
+<header><div class="nav">
+ <a class="logo" href="#"><i></i>Sunset Realty</a>
+ <div class="search">
+  <input id="q" placeholder="Busca casa, playa o amenidad…">
+  <select id="zoneSel"><option value="">Todas las zonas</option></select>
+  <button class="go" aria-label="Buscar">⌕</button>
+ </div>
+ <a class="cta" href="https://www.sunsetrealtypuerto.com/contctenos" target="_blank">Contáctanos</a>
+</div></header>
+
+<section class="hero"><div class="hero-in">
+ <img src="https://static.wixstatic.com/media/19cacf_4af1f3a3f31d4da3a24f74f9ac57726d~mv2.jpeg/v1/fill/w_1600,h_700,al_c,q_80/h.jpg" alt="">
+ <div class="tx"><h1>Casas y villas frente al mar en Puerto Escondido</h1><p>Desde estudios en Zicatela hasta villas con chef privado en Rancho Neptuno.</p></div>
+</div></section>
+
+<div class="bar"><div class="bar-in">
+ <div class="chips" id="chips"></div>
+ <button class="fbtn" id="openF">⚙ Filtros <b id="fcount">0</b></button>
+ <div class="view">
+  <button data-v="grid" class="on">▦ <span class="lbl">Cuadrícula</span></button>
+  <button data-v="list">☰ <span class="lbl">Lista</span></button>
+  <button data-v="table">⊞ <span class="lbl">General</span></button>
+ </div>
+</div></div>
+
+<main>
+ <div class="meta"><h2 id="count"></h2>
+  <select id="sort">
+   <option value="rec">Recomendadas</option>
+   <option value="pa">Precio: menor a mayor</option>
+   <option value="pd">Precio: mayor a menor</option>
+   <option value="g">Más huéspedes</option>
+   <option value="b">Más recámaras</option>
+  </select>
+ </div>
+ <div id="out"></div>
+</main>
+
+<footer>© Sunset Realty Group · Puerto Escondido, Oaxaca · Precios en USD por noche, sujetos a cambio · <a href="https://www.sunsetrealtypuerto.com/contctenos" target="_blank">Contacto</a> · <a href="http://sunsetrealty.wixsite.com/propertygroup" target="_blank">Rentas de largo plazo</a></footer>
+
+<!-- filtros -->
+<div class="scrim" id="fScrim"><div class="sheet">
+ <div class="sh-h"><button data-close>×</button>Filtros<span style="width:34px"></span></div>
+ <div class="sh-b">
+  <div class="fs"><h4>Precio por noche (temporada estándar)</h4>
+   <div class="range"><label>Mínimo<input id="pmin" type="number" value="0"></label>—<label>Máximo<input id="pmax" type="number"></label></div>
+   <input type="range" id="prange" min="100" max="2300" step="50">
+  </div>
+  <div class="fs"><h4>Huéspedes</h4>
+   <div class="counter"><span>¿Cuántos van?</span><div><button data-g="-1">−</button><b id="gv">Cualquiera</b><button data-g="1">+</button></div></div>
+  </div>
+  <div class="fs"><h4>Recámaras</h4><div class="seg" id="bseg"></div></div>
+  <div class="fs"><h4>Amenidades y servicios</h4><div class="cks" id="cks"></div></div>
+  <div class="fs"><h4>Zona</h4><div class="seg" id="zseg"></div></div>
+  <div class="fs"><div class="cks"><label><input type="checkbox" id="onlyAv" checked> Ocultar no disponibles</label></div></div>
+ </div>
+ <div class="sh-f"><button class="clr" id="clr">Limpiar todo</button><button class="btn" id="apply">Mostrar</button></div>
+</div></div>
+
+<!-- detalle -->
+<div class="scrim" id="dScrim"><div class="sheet det" id="det"></div></div>
+<div class="lb" id="lb"><button class="x">×</button><button class="a">‹</button><img><button class="b">›</button><div class="c"></div></div>
+
+<script>
+const W='https://static.wixstatic.com/media/19cacf_';
+const img=(id,w=900,h=760)=>{const ext=/\.(jpe?g|png)$/.test(id)?'':'.jpg';return `${W}${id}${ext}/v1/fill/w_${w},h_${h},al_c,q_80,enc_auto/p.jpg`};
+const GAL={"cali":["fc10cf0cbf2641c589fa5325f58a9ee9~mv2.jpg","6c000d4b3f124aeaa5b2a50de4bf0a45~mv2.jpg","9faeb747d6214fe8bbe43b599281d271~mv2.jpg","4a9cb523326d4f2f8c64c22f427bdcfe~mv2.jpg","0d56d4fbcb504e2c8322b8bc7e1d2233~mv2.jpg","689fdbeaf0c144eba2803e7f193d64d7~mv2.jpg","4ac83a3ac49f41c48bad0ebc62984231~mv2.jpg","3c7cec829ce34cb3826908a42485d26b~mv2.jpg","b4372b68b2304b8b80cff8e8784d70d2~mv2.jpg","5415f03f5b6b44e6af31dae6f883496e~mv2.jpg","1859b7c3782a47dc80436d559e75bd56~mv2.jpg","5a74583bdfb44a569314fd428d85a9b9~mv2.jpg","523e44dbe66c4d4db25e5e2a6481928e~mv2.jpg","7ffcf9e7e8b84c03a7a146b11fe32868~mv2.jpg","99335475c7754a5dbafd2c7a48dfc104~mv2.jpg","a57dd1a130704f8f800b3549e1820782~mv2.jpg","8c3353c818074de3bdf36824ff878333~mv2.jpg","f0498fc4b66c4b04b8d236099c20ae6b~mv2.jpg","6975bab2c7ba442ab19a5c3162941ab8~mv2.jpg","3e772843e71a4b3c839a86e0afb559ae~mv2.jpg","64cb2632388346a79bee920715ade927~mv2.jpg","25bb301011fa481a98d26389212ef306~mv2.jpg","c397ee23e4e04dd59d0bfdf4a9c353e9~mv2.jpg","38d8e96c6a41434ea6f3de33b47caf8d~mv2.jpg","ffe0a076afde4999b8a2e568448f436d~mv2.jpg","b556617824704ac29bff017e84f9ac39~mv2.jpg","b585e8da763347ca907233bff1dc3415~mv2.jpg","71a390435279473d8eddcb707147172e~mv2.jpg","e9a79da473094443b93e4f741086fda8~mv2.jpg","f652ac846013446e933569bafb37ba77~mv2.jpg","f3c02602113d4cae8dc58f911f71dc8b~mv2.jpg","38ba1e740bc044fb95bf2bec37e7c2f5~mv2.jpg","abd5cf5e3c4e43258b675e52e22d6054~mv2.jpg","ceef58a4eab447cda0b8db2e1d3097f4~mv2.jpg","9236981c8e30442c86a4f950ae2fca9f~mv2.jpg"],"juanito":["5ca835e714b9434389b03418158e8f48~mv2.jpg","5dba877c289c410e8a2a88e1e1cae211~mv2.jpg","ac38c70b751c459bb49fe68ea60dea21~mv2.jpg","7b33ff347d834094b570af1a7a8707e0~mv2.jpg","8e27c619aa0c4a3c85528a292a6d3f64~mv2.jpg","a072f7ddfd0d42ef9a6005da0053acd4~mv2.jpg","2e49cf18c7f94dfb85972826a2dacf6d~mv2.jpg","ed087c7b58594cab8acfd3c64b90ad7e~mv2.jpg","92b8d896e3fa40c9b5502bd606f96b71~mv2.jpg","53da48af46374b4387bcad679ba339b4~mv2.jpg","8780d46d8c7544efbda3fe8a430891f6~mv2.jpg","f6cd0bfa967441a38b65f256980b0fc6~mv2.jpg","f6c4c022edfb4beeaf3c74dc9d2187f3~mv2.jpg","6fd3b85658df4a009c032fbbea5c89cb~mv2.jpg","534cd67814404b6b8bc1474c5c00179d~mv2.jpg","0a660084c7c44b6bb8ceb834b90737c9~mv2.jpg","44fc3f46e7d44767a0a5a6543a2763f5~mv2.jpg","4dbc79d162c14d6785bd4d4a974c32ea~mv2.jpg","a11934fbf9ce418aa8c976730eb51c84~mv2.jpg"],"vivo":["3b93d5969b664fca9766a052b6b9f903~mv2.jpg","dc70397094e34e6a98e3fadaaaa2acf4~mv2.jpg","143850cfd2814204bd2ecef6901541e5~mv2.jpg","cacd6036d9654c93b748027c6e5d9ee8~mv2.jpg","7a636f4c31634078b1fad87bdbc40645~mv2.jpg","a25a45238244406d93b29744d56992b1~mv2.jpg","5aab9f6e3e044554a2b282fd46bca053~mv2.jpg","a167f45098e942c0ac2c042e590c1dac~mv2.jpg","9504a127534b496ca09aff26da45cb8f~mv2.jpg","7e65e9fcef5445829f61e117e51a8c6d~mv2.jpg","d1f42ce7c57647a4adde549248d17324~mv2.jpg","f33ece36aabb482e92d98ba1c5da69a5~mv2.jpg","474f26e559cc4ed6b08ba843ded9ada4~mv2.jpg","e18dd73c0f014932b305821a9f622596~mv2.jpg","8fc51825a88941e3947dce6f7c7ccbad~mv2.jpg","cc563cecb6204120b89e04ef5fb9b44d~mv2.jpg","7fd6f5e36d294b8180f7b72fcb2adaa0~mv2.jpg","1f7fb23863324f4c9aa691c4a169d885~mv2.jpg"],"playas":["1c55c3877553460199822622069a790c~mv2.jpeg","863bbb31263047f79208ad1fc83117ae~mv2.jpeg","cfa839c5c76d44479e934a0eb6488d94~mv2.jpeg","7e216405e7824487a330df47fbef0646~mv2.jpeg","b41633cdcb8f4157bb969b1a368abab5~mv2.jpeg","e7322904c1b6410c908fd16670008db5~mv2.jpeg","4a9790af275342ddabaf602354d25108~mv2.jpg","6dd221fe218a4436a85a9e0a99137419~mv2.jpg","a01806359bc946419c3958f78b5cc596~mv2.jpeg","a815f665b50c40b0a9deb2bd43ee9129~mv2.jpeg","6b274fed2f4d48da9e82227e5cb07bb3~mv2.jpeg","7a321ba1e6bc47f8a69da4d090dbc7cc~mv2.jpeg","66cb08476c064237b6de3b85ebe3b092~mv2.jpeg","3924170715a14f059587804f58f4668f~mv2.jpeg","a45dd878c9b24f06a0c8cb65465e15ba~mv2.jpeg","93f94d649495408884172a4188cbed42~mv2.jpeg","578599c364ad47b097129beec1e0221e~mv2.jpeg","18481d636bef4ed095553d03f130d714~mv2.jpeg","e75c53feeb524f338e6c030ee3a1d497~mv2.jpeg","fadb846021e24b16a47b6088054a78b7~mv2.jpeg","0c19fe416cc647ada46983d10390f22b~mv2.jpeg","10a3379640c34b7f9cd64934533556da~mv2.jpeg","c5052f6e48f140b6b01b113bf2dc831f~mv2.jpeg","3294c7e361554424ad9f67e80095974f~mv2.jpeg","cd64810acc1b4303b21bad487e2483c4~mv2.jpeg","f964e158f8b046c1b72f0e394d46bb18~mv2.jpeg","9a9f6a266c4541d5bbe69d552418c251~mv2.jpeg","72c0bb610c4f41528e694f98c5218966~mv2.jpeg","258f2cc9b78547f2ab19ef9693678d5a~mv2.jpeg","f7a3d4110df44b9bbc5cfe2c9d468fec~mv2.jpeg","ca5e83b4dec1403cbd5f1b200c6a9a52~mv2.jpeg","a62f06d2a6784396b93096a95177e82b~mv2.jpeg","8dd4577435bf4b03a284d231c26b00d2~mv2.jpeg","2041a2907805433e8e207a52dfefd8ec~mv2.jpeg","a380ff74a6a14fb5add9033aee216c7c~mv2.jpeg","5e465e1a684940058638edbd807f1745~mv2.jpeg","38a79a08a7a84f999a4f4185a3639b76~mv2.jpeg","11b3b0d36d1242518b6959739c3a116d~mv2.jpeg","82ee3b48ab58474bbd181a6b6d027a6f~mv2.jpeg","8b4c9201706b46ae9db841920cf32dbb~mv2.jpeg","0533e87bd2704d1e9e07e87f54525810~mv2.jpeg","0b6e69c7dfdc4c13a3abb4074dd7ccd6~mv2.jpeg","0517290572364329ab2773c1b2e4f45c~mv2.jpeg","fa7636cb5f96446cad91bd57c76cb7cb~mv2.jpeg","39ac9a73f7514dc5a0bb07ed28e09bd1~mv2.jpeg","d3399033966c4858acd4608bd8fd95af~mv2.jpeg","81196f7b46fb48218ba73d6817f41536~mv2.jpeg","e50b3739592a410cb650ad403bdcc8b6~mv2.jpeg","005a3ec319ac479a9bb14f5d41a3391a~mv2.jpeg","7851a9cf9fc543dbaaa4383e75fb6bd7~mv2.jpeg","95f062c6012048dd8e336204cb994425~mv2.jpeg","2b7c4c0585914aa2a91aed4fa48cbd24~mv2.jpeg","b53704199f2044c7bb269a56a7fb7d70~mv2.jpeg","3d48aeb561b14f8ca123bb40c540ee5a~mv2.jpeg","0c1de5250dcd43229b7df893215ff444~mv2.jpeg"],"sicaru":["8d23f123fdfe41d399dabb04ac503bf1~mv2.jpg","308b14f78097420d8430824273a80f88~mv2.jpg","bb568bbc09174d1487d2efccf339bc2a~mv2.jpg","4c41a08f56cb4b53920c2a87efa5269d~mv2.jpg","90e95f45491541b184d9007f9a81d129~mv2.jpg","86f992905a654b57a88d4cb49b57d2bc~mv2.jpg","f4ecfd31a9b14b2a9b801eb094ac7e4a~mv2.jpg","2843790943d0485198568023bbf717f9~mv2.jpg","640b58d494b644cea3f460557a6a21fd~mv2.jpg","20bca1be62e04f589ce168c3dfc1e8cb~mv2.jpg","91cd1cc7cf12456e87c9e935c9e29167~mv2.jpg","e3ed83f629554d9faa251c4f0dddd076~mv2.jpg","86d4d2f42cbf4762aa71f4c65df2ee26~mv2.jpg","60179ca7529c42b4a9baa7e592a8a4f6~mv2.jpg","845e4b969c0145a9ac7cfb631ff84713~mv2.jpg","dd76b607d0304deabcff8d6f299609e5~mv2.jpg","4e228b07dbbe47eea8966ea329d928c0~mv2.jpg","a99c4989a0d64907b5b83528e23b7b64~mv2.jpg","c21dfa9c445c4c3eb9233ece36ace5fb~mv2.jpg","615ef278c45e446eb04a03f89fe70b87~mv2.jpg"],"doris":["3e14e1940e0f41d7983b80680211aba5~mv2.jpg","ef8d822a3e7440d9aa77fcba9cdb8355~mv2.jpg","2d20fbadf5314d6eb6239a460760def8~mv2_d_2048_1365_s_2.jpeg","3d92165ad9064a4791b92e7e0dc06b87~mv2_d_2048_1365_s_2.jpeg","01f9de7980b747bcacab6e6679c184f7~mv2.jpeg","b76bf11ee6c64d05a3b2f88144fe48c3~mv2_d_2048_1365_s_2.jpeg","db8d523225d14a47aa759964d2a24a65~mv2.jpeg","6ad150a889574d12a456e7783fb94e35~mv2_d_2048_1365_s_2.jpeg","ffa1acdbd88c4abba3e2ee08b589ccb7~mv2_d_2048_1365_s_2.jpeg","7e32e2b519f64b7ab7a1a621ff5235f5~mv2.jpg","85b6bc23ee824e219c4a8c408d212171~mv2_d_2048_1365_s_2.jpeg","a38f1190380c47ceb6a02ccd3d46e6ef~mv2.jpg","df44701e32a94912af661c4daa9695d8~mv2.jpg","76081594312841b59a82885370419d65~mv2.jpg","7c0c69b933514f60bd01dc4ec22d259e~mv2.jpg","7cd445525bd84e0d8dcadefc9688dfbb~mv2.jpg","0d7088a87045454a8d3ac39a49aa1240~mv2.jpg","bce9dc1cb08e4c6c8c7ef017c3001992~mv2.jpg","0f8106228c394537a6b611822ff91b0c~mv2.jpg","0d5dcb13c7ec402d83729028693f26b9~mv2.jpeg","180aad29720746a3a2723180633acec8~mv2.jpg","ecd84b8afd82454694709336b500a2c4~mv2.jpeg","9d914ee5b68c4679a16722ba0cd7288b~mv2.jpg","41f76f1aae08446c9991841071114543~mv2.jpg","6a630e84f64a4bf5a4d1d10388645c57~mv2.jpg","3cfc3896ab6c43d683afa433862fe23f~mv2.jpg","0a7b3a3ce2164e69a66350e6e6c37279~mv2.jpg","b210ffbc61b84256ab84798668faf65b~mv2_d_2048_1365_s_2.jpeg","3efe194343cb40cb8fd641d195267865~mv2.jpg","c0cfbfc8930b4296a579a7c98fe8ac8c~mv2.jpeg","3e3bc7c8e5674de7a34d362798a55a00~mv2.jpeg","07308e533c124bdd960799258896f263~mv2.jpg","912eba70064b4f5abdc1e327170472e7~mv2.jpg","f5bda8bf47a54cd7975263d136a4bf42~mv2.jpg","fe0ab34c62c242519cb6e37a0d2154ac~mv2.jpeg","98f127e08f364f6db7e0779f2a02b933~mv2.jpg","211ce65909ef43ea8c87292d756e98f0~mv2.jpg","cde18fb2fe344c1f8ee5d7606754de20~mv2.jpg","c0ee66557763411da59a74b30cef77a6~mv2.jpg"],"8b":["943b4a4444234464ae148578846418f2~mv2.jpg","6562b834e06b4c6fac6016cd404976ca~mv2.jpg","81727733d7aa494189fedf0f005377cb~mv2.jpg","56e4ae9c598440be83994ebf67022f3b~mv2.jpg","b427d67f44aa489f8157ff7304b25b21~mv2.jpg","773c24d4e5a244b4ba4835b7ca3c70b1~mv2.jpg","b653073ac37147d98d917243e4219d47~mv2.jpg","2eec2ec704734fad96517c15a9a3a4f5~mv2.jpg","ad281070eebb4139817f29c03396a627~mv2.jpg","84689821403141c8a32fb39b2f0d9a8f~mv2.jpg","25f7b2257d244bd79a3d9c56385d7720~mv2.jpg","f1f7f0dadefc4821a2aad4ca965d41e0~mv2.jpg","7d64036597424be8adc33950efd7001b~mv2.jpg","fa242fd45ca344a987ef203b1e0156c7~mv2.jpg","b385e3565cdb43528b19a3c5bb573e5b~mv2.jpg","d0368871ef4e46efa2a3a6cb69325fd5~mv2.jpg","b0835c9fd66046b788ea158a853f9001~mv2.jpg","0cfc25ef524d460ea70e0e57fa8c5255~mv2.jpg","3e2125597deb4a07bc7adea8913f9fcb~mv2.jpg","fd5dfd4ce7a94036b2dc46e65e9b36b8~mv2.jpg","55da9c59d82349408d922e88639fb2fa~mv2.jpg","d6d044d42f3e47f5a16e42398fb6dcb1~mv2.jpg","de8f50231e424a96b8534dc4d5498a9d~mv2.jpg","ac7210dd9f334f71bb23da4eecc30f7b~mv2.jpg","2ac26a53eb57481da7545e562403f4bf~mv2.jpg","3b0dc43dce604331b3c7f8d17c9f70e3~mv2.jpg","bdfd5b420e7c42bfb3a73865fd4d72f5~mv2.jpg","54564f8d38244b749ba4af7834cf5198~mv2.jpg","71762954422d4e2792e80e8339caa7a3~mv2.jpg"],"entremuros":["d973e2c299a54875a12f4c0a53987325~mv2.jpeg","c2aaf108ba864299b31226c03d65521e~mv2.jpeg","5b38878feda444b3b6d29ce8afe10b59~mv2.jpg","0266e90ec41448fcb8e1d64b929c273e~mv2.jpeg","7f5b2d28e21e4ae9879868ab0f1d6368~mv2.jpeg","7798e0e2568d4f81a526b83f95a54350~mv2.jpeg","a453bcfbeae34a2c952bdbe77638c91b~mv2.jpeg","813c2395789347679327b7b3f7859a94~mv2.jpeg","260afba07c324bd19a6084c324fc5a94~mv2.jpg","e8004eb38beb455abc5db6e4e4ec7114~mv2.jpeg","f01290728bf04e488d6e7dcf25dffc15~mv2.jpeg","3771ee9b21bf487f8920a8c19fc911b5~mv2.jpeg","e27bfed36f634ab6961f87ab865bec1d~mv2.jpeg","f4af3271d9124688abf8509329f4cce4~mv2.jpeg","7421ef6619174ce08708017fa345597a~mv2.jpg","9a600587b8c74728afd4a04f6a3b2f45~mv2.jpeg","5f6317d1b59d4bdd865a020dfd52e432~mv2.jpg","82cb42011f924c7e953920d7add58ff3~mv2.jpeg"],"kalkuya":["4af1f3a3f31d4da3a24f74f9ac57726d~mv2.jpeg","b2547db027444a7ea3ec050372e14b20~mv2.jpg","b91bd5b5771b4381b6a1736aa8d45daf~mv2.jpg","723d31a4afe044b6b7e7d22f930d0cd1~mv2.jpg","e8e4109b39d6430a883d7eadcafc3b96~mv2.jpg","150b56dd54cc430683d7aee3149354e5~mv2.jpeg","87034cb8e6644c1f893de6e0ce42243f~mv2.jpeg","14dead0819d7494e866b82d67472be70~mv2.jpeg","14437601e10542c280c9419a459be5f2~mv2.jpeg","7b75d1f655d049c9ba89e58dd3b63de1~mv2.jpg","2dce600ac849421a828c3462c8f8966c~mv2.jpeg","0da6671fd3b54310958649248722adcd~mv2.jpg","6a1d5900232d47008dce3f6cc89c4f99~mv2.jpeg","14222bbab553490b9d0835cc06448077~mv2.jpeg","1aa8d40e2b11415699fa269b6705d10c~mv2.jpeg","66b784bd410441e6a9cc3b08b1eb642c~mv2.jpeg","3e8fa6b019ea4627b72db429cf67302a~mv2.jpeg","dc424295238346df9ba6b4136a21d6fc~mv2.jpeg","cdfafb6e184242e6abb0f27b36e3c093~mv2.jpeg","cb7614857956454fa455542cbe48af04~mv2.jpeg","43a644229aa944ecbd8b29ced5f78a36~mv2.jpeg","982a132222074d0ea969c7440c85fb3a~mv2.jpeg","9152bc9b57304b3c851d15accefc221f~mv2.jpeg","693cdc41fcf24af6926055a24312b96a~mv2.jpeg","5517daaead7b455f93b5ffe9fc808ee5~mv2.jpeg","b37a67bc610746398683c58b1ee8896d~mv2.jpeg","5d6af01c96d74ef3939773e7fe355b12~mv2.jpeg","f887667b154741858aadbfd1a52d4b1e~mv2.jpeg","d56d576643524522829e7347fc3a85e3~mv2.jpeg","5e06d24b8d7f488e82a7441863b38b25~mv2.jpg","e2ec9d531c174f1d8c4e2802dd569318~mv2.jpg","a4a48c8c942d4d75875c6f8460ef0420~mv2.jpg"],"solnaranja":["9be4c0e91fa24fc59325503473829b39~mv2.jpg","384d13c88f5f4580bf3cede3e4434c43~mv2.jpg","e116ffc4529b430db34fd03fb143f617~mv2.jpg","6326ae5c9e7b4b2dab457b90cac618c1~mv2.jpg","a7b84de7556a42a9937f4b4e63b3aa19~mv2.jpg","a6e05e371fb34e12b1bac68a1fdf97c2~mv2.jpg","e6ace4dfcddf4415b457e9fe309907ce~mv2.jpg","800a0704e6974e499f127d580cfc905b~mv2.jpg","9a1c3a998eac4e789a2f4d564c5d4830~mv2.jpg","22e532ac157c4423982099acb8c9489e~mv2.jpg","1ae1930b8d284b6083094bd891761c8f~mv2.jpg","9212855b9bf846d58a468fb5a3e9e2d0~mv2.jpg","5b6ca51d85534754af2326f744f92b43~mv2.jpg","86fc5bcced464547b6807e813b322359~mv2.jpg","b5e89a2131b64cc59f308f045a4080e2~mv2.jpg","79618406a528416f9d8bd6ff28e18e58~mv2.jpg","f421189a8ae444d581d81b5e414cb3ac~mv2.jpg","ce2f0607f1cc427dad81ac011f3c5d4c~mv2.jpg","7e513c542c4b4f21a595ebcde489bfc3~mv2.jpg","81e5954675e94027971020e055183491~mv2.jpg","bb587e4e809e477d89c9de449b906477~mv2.jpg","c5ddc0407e514a03a49cc99b8d90c2b2~mv2.jpg","984158e7290a42909e838c8e2a4ca97c~mv2.jpg","44cea9a0ede54fbc9dd57a273df87c48~mv2.jpg","cba261a29fc246e0b44b6fee33ca97f9~mv2.jpg","a070e54a92164711a7333bfada55b5d5~mv2.jpg","395a2a0cd7ca433db8123a102c888c4d~mv2.jpg","7e519aba755048618106b081abb1cbb3~mv2.jpg","af4549a4b3b3495eb47eed7ce5808752~mv2.jpg","2b0da27cf13841d69de22fb2155fad22~mv2.jpg","72c50df170964077860b1071f75e6ed7~mv2.jpg","c578bc35a76247dbb13584ba063804e0~mv2.jpg","6c8c02e8764a44c4ae8c1079eba6e85c~mv2.jpg","b1d276f99f774ee5872a4163cbb6ab6c~mv2.jpg","e4682e197f6942ffa4739d348eb5a9b1~mv2.jpg","b3612b20bc004758bdf1d9651828d497~mv2.jpg","331c5ff8f77047b9b4af4fb1bcf25265~mv2.jpg","168776b5817a481792b45aa1c0d148cf~mv2.jpg","954f86e031f34e71b6ded133dba9a41b~mv2.jpg","65e6ab506f86427fb6a65e3c61b614ab~mv2.jpg","1ec2f177626943aa90e5040c5c92f285~mv2.jpg","0de4ad6169854373aa52e93d25e6847f~mv2.jpg","0e69df4eda5441ab817cd1cbda48be0d~mv2.jpg","71b6fef3ca7c42d599bd130486031ecc~mv2.jpg","e4a3c1d0da6a4b45aa865a8bcdcf57d2~mv2.jpg","3558b38e4c544aebbb8dd5f17e65a809~mv2.jpg","041dc2a9adbc45f48b3b70cfeee304e7~mv2.jpg","779594e178954ab9a876b531a8229787~mv2.jpg","2a9de0836dba45e9bb44dd3dd6a8b358~mv2.jpg","9cba7849281d452f88f232caa3ad2844~mv2.jpg","e0454096ce3d4d0e83790df9d99d377f~mv2.jpg","66e6e76b960f49aaad1c946e78487ccf~mv2.jpg","432e767316c14ef086380ab79aefaf62~mv2.jpg","ba569ea1077e484eb4fea024117205eb~mv2.jpg","cab64b48416b4a90b63c01a933f3a3ea~mv2.jpg","2dbe199ed2d740ada75823441fffdd0b~mv2.jpg","b5526c5b34994a7385a819fd69e09ce9~mv2.jpg","729d6f59037e4f16b6ee12c8ae50bb3b~mv2.jpg","1e7fe702580e444492e22a7adb41a6d0~mv2.jpg","8045f257128c40e0a1472e9d57fb0687~mv2.jpg","4d087c1c924943c7a67bce807d50fe9e~mv2.jpg","4fd1ca69e8b3457ab9fd5e096db84f90~mv2.jpg","fe22dcf0cc6c4f8580cfb3001a60d946~mv2.jpg","0a5ed49724f14fc8bc7b2ae9af784e7e~mv2.jpg","6537308f7b0046ee8ef5d4d88ef3639c~mv2.jpg","38f4fc6aed9348b1b6f05548a7e89942~mv2.jpg","6ca37b8a7c5b4ef286a3a3c6910dd41a~mv2.jpg","fb91aaf91548421e8f9b555b094e8603~mv2.jpg","e1798e20cf204a0db16cc5dc191a8017~mv2.jpg","708c1dc0c8ab4aa69344e689f3b0506d~mv2.jpg","85dbf5c0a6ce4f0991a4f667e40b0650~mv2.jpg","a7073433f9f844aa9d51354d74b15332~mv2.jpg","8b017bcd5a0544ceb986a037bfeaeb87~mv2.jpg","90eb6935fd5046d8849d3b70e1790a0e~mv2.jpg","f53ce4998c954988a5d4dc4d182d2c05~mv2.jpg","2e5a6fc73de24c479f0e60b4d4fdd53e~mv2.jpg"],"ao":["ab63678b8b024df7b96e9109b4dc44ae~mv2.jpg","0bcec35adc4e427cb84a6844717c80d1~mv2.jpg","01dfe1a302974640a9e1ec04a516169c~mv2.jpg","2e5181c2a9134df4a946687536b35267~mv2.jpg","d1b18990812c480d8c1264f90d35c99b~mv2.jpg","b80544bd35204187afe30e072a6c939f~mv2.jpg","855023dfbe6e4fb49cca54dca3eb8a39~mv2.jpg","dd84fab593924c2ca076b7594d0c41d5~mv2.jpg","9fc547a5af214c859d4b810a50330e2e~mv2.jpg","bb1b764fd090422497e0a8ba995d0068~mv2.jpg","207cef053b9c47d9adec70198d6ced79~mv2.jpg","46e2783575b84a8c9a06d0c0ad3f327c~mv2.jpg","1457c0b27aad4114b7c40381592764d4~mv2.jpg","25ed3467bf9c4210bca204bebb589a52~mv2.jpg","b85e749e4f764351ac0ceaae27dfd082~mv2.jpg","fdb93de47b1d46b4a11f6af427a015a8~mv2.jpg","aac95c05005842b38e4431fd7d31dd06~mv2.jpg","f02d493d4ce94ba480de516c14d9bad8~mv2.jpg","f973707ea413422ebc0f5f7d27453541~mv2.jpg","af3f430540554bf790ba2ebc24be830c~mv2.jpg","e3a49616971e444a8a876744a36002d2~mv2.jpg","b00905da68104da09f2baf379ca2dc5d~mv2.jpg","611f09c6293a451c9bbcf3a2e1a8f133~mv2.jpg","3fc9d5f959c14ce0a90f210d65949876~mv2.jpg","aab9af82cf974650bedd7f306e569e8d~mv2.jpg","9ccdf66b31f64943b691d16097a8c9df~mv2.jpg","8a2a1e7208e64d7994c3cc80b33beca1~mv2.jpg","23ec630afc364ec1877bb1b3e1fceec6~mv2.jpg","113819ece7144eb5bc7ac25756984376~mv2.jpg","30a52c588fd945a1951b0ad55f669e1e~mv2.jpg","e88188666eca45d3b6ef3fd35ddd42c4~mv2.jpg","8abcf83cf0224ccb99e22c71d40b8eb6~mv2.jpg","4c841fe14ea24a8f976ac44ccc740ab1~mv2.jpg","9e3b9a4479da402b864afbc5d19d007f~mv2.jpg","fe6d0def92c6460d98389c1c05713020~mv2.jpg","25e0ab9c70ec40aba8367396280f99d1~mv2.jpeg","3002cf2821b94728ad7245f622611318~mv2.jpg","c9891948b7af47cb883a6fd9d5575374~mv2.jpg","ac45f5018568419599194a3c071e5afb~mv2.jpg","655c7d4b51a14fbda4050aa95ae087de~mv2.jpg","3d629e72b8e647cdb0bb50d8b1a5b47d~mv2.jpg","255bc3bd35114d77a1502a2b20b194b0~mv2.jpg","1c2811811b7e4bb9b580a931dbe7b58f~mv2.jpg","960c1c88eae74efa856649295612394b~mv2.jpg"],"castillo":["dca1108d41a54eada0cb7280a5891370~mv2.jpg","510ce84e2cc64c93b3a357d082330cd9~mv2.jpg","e830281d4f6049cc84b5a82b68d2ee50~mv2.jpg","a182f6937acb4b0eaf6a8ef65db0fc9b~mv2.jpg","bb646c10aac448d1849bd7a924ed8f43~mv2.jpg","1baff5b4b20f412299edae01333d1537~mv2.jpg","1d28854329a24acf8d3be452048ad6e4~mv2.jpeg","17a9b827fc43482584d663a8c32dac88~mv2.jpg","9f12fc35abf54d57813d8b8263541e61~mv2.jpg","883ea332c08f4b6c9b230d930f39ccac~mv2.jpg","485decd53d5247c2928cde1113284c67~mv2.jpg","077b9d02c6d04560bbb34211dafc17f4~mv2.jpg","03680439a83047a2aac779ba72eabb44~mv2.jpg","52135485ddb24b14b3e25def624c583b~mv2.jpg","37e117ee26b346e5a08f6b27be0b5b90~mv2.jpg","b700e519eaed44d0bd30e80ca558b7d3~mv2.jpg","64b9caba061e47a8af148c326e49f61f~mv2.jpg","342636d7d4de44b081eccd1ff89d58fc~mv2.jpg","cbe28c55480d434cae936715ddc00c9a~mv2.jpg","3d0bb2f6550a4a99bf45076eed71132b~mv2.jpg","145b232ae5bd40eca9e6a799f6ff1e85~mv2.jpg","cc9fc06beffa4aaf88f6c616bf4f03d1~mv2.jpg","3ee46a2b4e254958abff22266564054a~mv2.jpg","f105f1e08ac54233acc18efe3810c71c~mv2.jpg","8dc8c9d15e8d47829981f95fd833a4fb~mv2.jpg","e53948ef059c40ed96be448e6d7fb6cc~mv2.jpg","4a410ed2eb4f40a89febd5a1876d9790~mv2.jpg","aaf203893bec47f686aa2089e8ed9481~mv2.jpg","9018123d46d44725ae31c082bc7287ea~mv2.jpg","987f34aba5c04689b977ab603c4bdd68~mv2.jpg","9b8f0985c82d47778b791ffe339524a7~mv2.jpg","44e658a554864bb0a875bfb54e8654a8~mv2.jpg","eb66bc0f8a824e63ab9b52a987b35cab~mv2.jpg","053f5dbdac1e4241a01c5720af37792d~mv2.jpg","410f0f97363b422a88da7496436988e2~mv2.jpg","4c7abbe577eb41b0a40648aa709ab219~mv2.jpg","c0fa5e3b609247b3a0ca25d5bd2ced30~mv2.jpg","84f4f64dc34c43a59877b7d50756a258~mv2.jpg","5dd99e9d19944a1699359bb9a9119e86~mv2.jpg","21e770e76c1a426191c65b66cf4e4fa9~mv2.jpg","e553be2d41394ea78d5c5feef0039ff1~mv2.jpg","a3b3ec130a0a4b8ca6a50a0259858fd5~mv2.jpg","ea5022554f8644989ce20e3bd213bc03~mv2.jpg","2cc97192dcc44562a4ba8e28137afb77~mv2.jpg","cb7147fc8e024e41aaa3757ec6ed867c~mv2.jpg","fe50aaa8d2044d57bfc3466ea039e62d~mv2.jpg","930a0d4e19b64ae3b974092b49b98ae0~mv2.jpg","5a303854db3b493dbfa85d594e9ab37b~mv2.jpg","2e73b20022c64f189ba6ef9e44f79a8a~mv2.jpg","2b67d4dde35a433c805d8f0d35a3a8c2~mv2.jpg","ecee52e2c7794ce0b73661bfdde9cb81~mv2.jpg","b9fdb9e275d44b9492ef529a49825b95~mv2.jpg","e874c28837644934b4c754f4e0529792~mv2.jpg","9e882de1ffe9444790333684b3e83d64~mv2.jpg","1f84021b5688431c9c23950f0fa8ea4e~mv2.jpg","ad5b457c269347a5bb60416973091af6~mv2.jpg","de9b3fe21c874504bd95e8bdf22fad58~mv2.jpg","ec21879c10e44d4e827ac77b610f58f2~mv2.jpg","81dbd62bf47049eda1748c85e9e10929~mv2.jpg","ce674ea19057486a9ea666c4b1734ca1~mv2.jpg","2d60ae736ca9461d845f0ca66d7fbbae~mv2.jpg","08957e3c5ae1475e903b8dd4585a9b76~mv2.jpg","98b3fdee62f34b9db2ddc1ae97fa77f6~mv2.jpg","e198bcb6be044c089a7b5f71e3c2f404~mv2.jpg","5e0263db76884136a9b383c913987763~mv2.jpg","cf0b4fe58d124723b2114af9f1d9242c~mv2.jpg","86367cb15d8d46a59d0a99a41d07be37~mv2.jpg","16ca0d38343e4f3a8f971a912a54c8d6~mv2.jpg","1f615e4f5c2b4653beea1a9c0c528aa1~mv2.jpg","be5d1a786553431080714aaccfe67c68~mv2.jpg","afe13d4880594fdf8110a355cca81a73~mv2.jpg","32aad9671b074d8581f1f9a2f9cb0049~mv2.jpg","797ff2de424d4fd7abee3cf50adfd201~mv2.jpg","c623173d7c734e8cbc1c9bf3444c4cfa~mv2.jpg","14369191b34b46d1b9bc6962a376fb23~mv2.jpg","5cca34d5354148028153904f68449853~mv2.jpg","1694455dda2c46b29eea3a899617c3a7~mv2.jpg","2cc5681822a54bbab1f762e5bc9e1650~mv2.jpg","4d9cecb88ee24d49b32bb09e056485a4~mv2.jpg","b20d0de983d042f8943e572e77585ed8~mv2.jpg","9d3a850e7ce44f58a83e015c7ea0f855~mv2.jpg","5e7d057f1ce4408d89182ddd1be05f04~mv2.jpg","b2e738cdf2734e8688f2fcea6a1961e5~mv2.jpg"],"hotel":["fbcde628ffbd4a1f856d910155398e07~mv2_d_4272_2848_s_4_2.jpg","0d44cb5f43574b4ea18cc375f1a2ef2d~mv2_d_4272_2848_s_4_2.jpg","22a9dd828d7240a8b68c305b702a2dbd~mv2_d_2848_4272_s_4_2.jpg","551dbaf66adf480e88cc19b01bda2cc4~mv2_d_4272_2848_s_4_2.jpg","484c8234439e4e12be771ac8fb84520d~mv2_d_2848_4272_s_4_2.jpg","afeafd9ed2294f38825ac654e094798a~mv2_d_2848_4272_s_4_2.jpg","db2ce15fd4b4452bb7a05a9955190b8b~mv2_d_4272_2848_s_4_2.jpg","3cc452cdc69345279f5504593078c049~mv2_d_2848_4272_s_4_2.jpg","8aeec15a8a0a4fb5a64dd87b34655b15~mv2_d_2848_4272_s_4_2.jpg","95b4f38514364a56a3299cb0bff88607~mv2_d_4272_2848_s_4_2.jpg","8061956cda3043578086fd327d349aa4~mv2.png","f28745f236fd4bf29a4f8bba836b0b29~mv2_d_4272_2848_s_4_2.jpg"]};
+const P=[
+{id:'cali',n:'Casa Cali',z:'Zicatela / La Punta',loc:'Playa La Punta',b:3,ba:3,g:8,p:300,min:2,tipo:'Casa',
+ d:'Casa de tres recámaras a unos pasos de Playa La Punta, con sala abierta, cocina equipada, patio privado y alberca. Todas las recámaras con aire acondicionado.',
+ a:['Alberca','Aire acondicionado','Patio privado','Cocina equipada','Cerca de la playa'],
+ im:['fc10cf0cbf2641c589fa5325f58a9ee9~mv2.jpg','6c000d4b3f124aeaa5b2a50de4bf0a45~mv2.jpg','9236981c8e30442c86a4f950ae2fca9f~mv2.jpg'],
+ r:[['Estándar (1–4 huésp., +$50 extra)',300,'2 noches'],['19 dic – 25 ene',650,'5 noches'],['25 dic – 2 ene',750,'5 noches'],['Semana Santa (29 mar – 7 abr)',350,'3 noches']]},
+{id:'juanito',n:'Casa Juanito',z:'Zicatela / La Punta',loc:'La Punta, Zicatela',b:3,ba:3.5,g:8,p:250,min:3,tipo:'Casa',
+ d:'Casa de playa a una cuadra del mar con alberca, jardín y comedor exterior. Incluye ama de llaves y concierge para tours y clases. El dueño vive arriba; la planta baja es exclusiva para huéspedes.',
+ a:['Alberca','Jardín','Ama de llaves','Concierge','Cerca de la playa'],
+ rooms:['2 queen','2 matrimoniales','2 matrimoniales'],
+ im:['5ca835e714b9434389b03418158e8f48~mv2.jpg','5dba877c289c410e8a2a88e1e1cae211~mv2.jpg','a11934fbf9ce418aa8c976730eb51c84~mv2.jpg'],
+ r:[['Estándar (may, jun, jul, nov · +$45 extra)',250,'3 noches'],['19 dic – 25 ene',600,'5 noches'],['25 dic – 2 ene',785,'5 noches'],['Semana Santa',500,'3 noches']],note:'Visitas de día: $25 USD/persona (máx. 12).'},
+{id:'vivo',n:'Penthouse Vivo frente al mar',z:'Palmarito',loc:'Playa Palmarito',b:3,ba:3,g:6,p:325,min:3,tipo:'Penthouse',front:1,
+ d:'Penthouse frente al mar dentro de un resort en Palmarito, con terraza privada y vista al atardecer. Limpieza incluida. El resort tiene spa, gimnasio, albercas, restaurantes y minisúper.',
+ a:['Frente al mar','Alberca','Spa y gimnasio','Restaurantes','Limpieza incluida','Terraza privada'],
+ rooms:['1 king','1 king','1 individual'],
+ im:['3b93d5969b664fca9766a052b6b9f903~mv2.jpg','dc70397094e34e6a98e3fadaaaa2acf4~mv2.jpg','1f7fb23863324f4c9aa691c4a169d885~mv2.jpg'],
+ r:[['Estándar (1–4 huésp., +$50 extra)',325,'3 noches'],['19 dic – 25 ene',900,'5 noches'],['25 dic – 2 ene',1100,'5 noches'],['Semana Santa',450,'5 noches']]},
+{id:'playas',n:'Casa Playas',z:'Zicatela / La Punta',loc:'Los Tamarindos, Zicatela',b:4,ba:4,g:8,p:275,min:2,tipo:'Casa',off:1,
+ d:'Casa relajada a una cuadra de Playa Zicatela. Renta de bicis y tablas, café o té de bienvenida, bebidas frías, lavandería y acceso a alberca y palapa.',
+ a:['Alberca','Palapa','Starlink','Bicis y tablas de surf','Lavandería','Cerca de la playa'],
+ rooms:['King + queen','King','Queen','Queen'],
+ im:['1c55c3877553460199822622069a790c~mv2.jpeg','863bbb31263047f79208ad1fc83117ae~mv2.jpeg','0c1de5250dcd43229b7df893215ff444~mv2.jpeg'],
+ r:[['Estándar (1–4 huésp., +$50 extra)',275,'2 noches'],['19 dic – 25 ene',590,'5 noches'],['26 dic – 3 ene',595,'5 noches'],['Semana Santa',515,'4 noches']]},
+{id:'sicaru',n:'Casa Sicaru',z:'El Puertecito',loc:'El Puertecito',b:4,ba:5,g:10,p:525,min:3,tipo:'Villa',
+ d:'Villa exclusiva con servicio completo a 200 m de la playa. Cocina abierta bajo una gran palapa y vista al Pacífico desde la alberca. Incluye limpieza diaria, cocinera, compras y concierge (7:30 a 17:00).',
+ a:['Alberca','Vista al mar','Chef / cocinera','Limpieza diaria','Concierge','Palapa'],
+ rooms:['Queen + 2 ind.','Queen + 2 ind.','Queen + 2 ind.','Queen'],
+ im:['8d23f123fdfe41d399dabb04ac503bf1~mv2.jpg','308b14f78097420d8430824273a80f88~mv2.jpg','615ef278c45e446eb04a03f89fe70b87~mv2.jpg'],
+ r:[['Estándar (1–8 huésp., +$50 extra)',525,'3 noches'],['19 dic – 25 ene',975,'5 noches'],['25 dic – 2 ene',1100,'5 noches'],['Semana Santa',850,'4 noches']],note:'Menores de 2 años gratis.'},
+{id:'doris',n:'Casa Doris',z:'Rancho Neptuno',loc:'Rancho Neptuno',b:5,ba:4.5,g:12,p:725,min:2,tipo:'Villa',front:1,
+ d:'Villa frente al mar de diseño elegante en zona residencial privada y segura. Alberca infinita y staff completo. Renta exclusiva para tu grupo.',
+ a:['Frente al mar','Alberca infinita','Starlink','Chef / cocinera','Bartender','Concierge','Seguridad'],
+ rooms:['King','King','King','King + 2 ind.','Queen'],
+ im:['3e14e1940e0f41d7983b80680211aba5~mv2.jpg','ef8d822a3e7440d9aa77fcba9cdb8355~mv2.jpg','c0ee66557763411da59a74b30cef77a6~mv2.jpg'],
+ r:[['Estándar (1–6 huésp., +$55 extra)',725,'2 noches'],['19 dic – 25 ene',1450,'5 noches'],['25 dic – 2 ene',1900,'5 noches'],['Semana Santa',975,'3 noches']],note:'Comida, bebidas, tours, transporte y propinas no incluidos.'},
+{id:'8b',n:'Casa 8B',z:'Costa Cumaná',loc:'Costa Cumaná',b:5,ba:5,g:12,p:440,min:3,tipo:'Villa',
+ d:'Villa moderna y tropical con servicio completo en fraccionamiento privado, a 15 min del centro y a pasos de la playa. Seguridad 24 h. Ideal para eventos especiales.',
+ a:['Alberca','Starlink','Chef / cocinera','Seguridad','Eventos','Cerca de la playa'],
+ rooms:['King','2 matrimoniales','Matrimonial','2 matrimoniales','2 matrimoniales'],
+ im:['943b4a4444234464ae148578846418f2~mv2.jpg','6562b834e06b4c6fac6016cd404976ca~mv2.jpg','71762954422d4e2792e80e8339caa7a3~mv2.jpg'],
+ r:[['Estándar (1–6 huésp., +$50 extra)',440,'3 noches'],['19 dic – 25 ene',1000,'5 noches'],['25 dic – 2 ene',1300,'5 noches'],['Semana Santa',950,'5 noches']],note:'Visitas de día $25/persona (máx. 16). Construcción vecina de 8 a 17 h.'},
+{id:'entremuros',n:'Casa Entremuros',z:'Punta Plataforma',loc:'Punto Plataforma',b:6,ba:7,g:16,p:1100,min:3,tipo:'Villa de lujo',front:1,
+ d:'Villa de lujo frente al mar diseñada por MAAD Arquitectura: alberca de 18 m, asoleadero, fogatero y una cocina abierta enorme. Chef, mesero, limpieza, compras y concierge incluidos (9 a 17 h). Menú con más de 30 platillos mexicanos.',
+ a:['Frente al mar','Alberca 18 m','Starlink','Chef / cocinera','Concierge','Fogatero','Jacuzzi'],
+ rooms:['King + tina','King + tina','King','King','2 queen','2 queen'],
+ im:['d973e2c299a54875a12f4c0a53987325~mv2.jpeg','c2aaf108ba864299b31226c03d65521e~mv2.jpeg','82cb42011f924c7e953920d7add58ff3~mv2.jpeg'],
+ r:[['Estándar (1–8 huésp., +$85 extra)',1100,'3 noches'],['19 dic – 25 ene',1750,'5 noches'],['25 dic – 2 ene',3150,'5 noches'],['Semana Santa',1750,'5 noches']],note:'Visitas de día $45/persona (máx. 16). Menores de 2 gratis.'},
+{id:'kalkuya',n:'Casa Kalkuya',z:'Rancho Neptuno',loc:'Rancho Neptuno',b:6,ba:7,g:16,p:1850,min:3,tipo:'Villa de lujo',front:1,
+ d:'Villa exclusiva frente al mar con alberca, camastros, sombrillas y sala abierta hacia el océano, con kilómetros de playa. Chef oaxaqueño, bartender, ama de llaves, jardinero y concierge.',
+ a:['Frente al mar','Alberca','Starlink','Chef / cocinera','Bartender','Concierge'],
+ rooms:['King + ind.','King','King','King','King','2 queen'],
+ im:['4af1f3a3f31d4da3a24f74f9ac57726d~mv2.jpeg','b2547db027444a7ea3ec050372e14b20~mv2.jpg','a4a48c8c942d4d75875c6f8460ef0420~mv2.jpg'],
+ r:[['May – oct (1–8 huésp., +$80 extra)',1850,'3 noches'],['Nov – abr',2250,'3 noches'],['19 – 25 dic',3500,'5 noches'],['26 dic – 2 ene',6000,'5 noches'],['Semana Santa',3500,'3 noches']]},
+{id:'solnaranja',n:'Casa Sol Naranja',z:'Rancho Neptuno',loc:'Rancho Neptuno',b:7,ba:6,g:15,p:795,min:2,tipo:'Villa',front:1,
+ d:'Villa amplia con gran alberca, jardín de pasto enmarcado por cactus, palapa con comedor y salas, y una larga playa privada. Chef oaxaqueño, mesero, bartender, limpieza, jardinero y concierge.',
+ a:['Frente al mar','Alberca','Aire acondicionado','Chef / cocinera','Bartender','Jardín','Palapa'],
+ rooms:['King · vista mar','Queen · vista mar','King','Queen','Queen','Queen','Queen + ind.'],
+ im:['9be4c0e91fa24fc59325503473829b39~mv2.jpg','384d13c88f5f4580bf3cede3e4434c43~mv2.jpg','2e5a6fc73de24c479f0e60b4d4fdd53e~mv2.jpg'],
+ r:[['Estándar (1–6 huésp., +$55 extra)',795,'2 noches'],['19 dic – 25 ene',1750,'5 noches'],['25 dic – 3 ene',1950,'5 noches'],['Semana Santa',1250,'4 noches']],note:'Visitas de día $25/persona (máx. 13).'},
+{id:'castillo',n:'Casa Castillo',z:'Rancho Neptuno',loc:'Rancho Neptuno',b:9,ba:7.5,g:20,p:785,min:3,tipo:'Villa de lujo',front:1,
+ d:'Villa de clase mundial frente al mar con gran alberca, palapa sobre sala y comedor y playa privada. Staff completo: chef oaxaqueño, bartender, ama de llaves y concierge. Disponible para bodas, eventos y retiros.',
+ a:['Frente al mar','Alberca','Starlink','Chef / cocinera','Bartender','Eventos','Palapa'],
+ im:['dca1108d41a54eada0cb7280a5891370~mv2.jpg','510ce84e2cc64c93b3a357d082330cd9~mv2.jpg','b2e738cdf2734e8688f2fcea6a1961e5~mv2.jpg'],
+ r:[['Estándar (1–6 huésp., +$65 extra)',785,'3 noches'],['19 dic – 25 ene',1950,'5 noches'],['25 dic – 3 ene',2400,'5 noches'],['Semana Santa',1200,'5 noches']],note:'Visitas de día $25/persona (máx. 26). Menores de 2 gratis.'},
+{id:'ao',n:'Casa AO',z:'Rancho Neptuno',loc:'Rancho Neptuno',b:8,ba:8.5,g:26,p:1390,min:3,tipo:'Villa de lujo',front:1,
+ d:'Villa frente al mar con servicio completo en fraccionamiento con seguridad, a 15 min de Puerto Escondido. Palapa de 350 m², cocina de exhibición y de servicio, regaderas tipo lluvia, jacuzzi y casita privada con 2 recámaras y cocina.',
+ a:['Frente al mar','Alberca','Jacuzzi','Starlink','Aire acondicionado','Chef / cocinera','Seguridad','Estacionamiento','Accesible'],
+ rooms:['King · vista mar','2 queen · vista mar','2 queen','2 queen','King','King','Casita 2 queen','Casita 2 queen'],
+ im:['ab63678b8b024df7b96e9109b4dc44ae~mv2.jpg','0bcec35adc4e427cb84a6844717c80d1~mv2.jpg','960c1c88eae74efa856649295612394b~mv2.jpg'],
+ r:[['Estándar (1–8 huésp., +$30 extra)',1390,'3 noches'],['19 – 25 dic',4600,'5 noches'],['26 dic – 2 ene',5700,'5 noches'],['Semana Santa',1700,'6 noches']],note:'Más impuestos y limpieza. Desayuno, comida y snacks incluidos; cena con aviso.'},
+{id:'hotel',n:'Playas Hotel',z:'Zicatela / La Punta',loc:'Playa Zicatela',b:1,ba:1,g:2,p:160,min:3,tipo:'Hotel',off:1,
+ d:'Hotel en Playa Zicatela, a pocos pasos de La Punta y Zicatela.',
+ a:['Cerca de la playa'],
+ im:['fbcde628ffbd4a1f856d910155398e07~mv2_d_4272_2848_s_4_2.jpg','0d44cb5f43574b4ea18cc375f1a2ef2d~mv2_d_4272_2848_s_4_2.jpg','f28745f236fd4bf29a4f8bba836b0b29~mv2_d_4272_2848_s_4_2.jpg'],
+ r:[['Estándar (1–2 huésp.)',160,'3 noches'],['19 dic – 2 ene',340,'5 noches'],['Semana Santa',220,'5 noches']]}
+];
+const AM=['Frente al mar','Alberca','Chef / cocinera','Starlink','Aire acondicionado','Concierge','Bartender','Jacuzzi','Seguridad','Eventos'];
+const ZONES=[...new Set(P.map(p=>p.z))];
+const CHIPS=[['all','✦ Todas'],['front','🌊 Frente al mar'],['chef','👩‍🍳 Con chef'],['big','👥 Grupos 12+'],['lux','✨ Lujo'],['budget','💸 Menos de $400'],['events','🎉 Eventos']];
+const S={q:'',zone:'',chip:'all',pmin:0,pmax:6000,g:0,b:0,am:[],onlyAv:true,sort:'rec',view:'grid'};
+let favs=[];try{favs=JSON.parse(localStorage.getItem('sr_favs')||'[]')}catch(e){}
+const $=s=>document.querySelector(s);
+const money=n=>'$'+n.toLocaleString('en-US');
+
+function filtered(){
+ let r=P.filter(p=>{
+  const t=(p.n+p.loc+p.z+p.d+p.a.join(' ')+p.tipo).toLowerCase();
+  if(S.q&&!t.includes(S.q.toLowerCase()))return false;
+  if(S.zone&&p.z!==S.zone)return false;
+  if(p.p<S.pmin||p.p>S.pmax)return false;
+  if(S.g&&p.g<S.g)return false;
+  if(S.b&&p.b<S.b)return false;
+  if(S.onlyAv&&p.off)return false;
+  if(!S.am.every(a=>p.a.some(x=>x.startsWith(a.split(' ')[0]))))return false;
+  const c=S.chip;
+  if(c==='front'&&!p.front)return false;
+  if(c==='chef'&&!p.a.includes('Chef / cocinera'))return false;
+  if(c==='big'&&p.g<12)return false;
+  if(c==='lux'&&p.tipo!=='Villa de lujo')return false;
+  if(c==='budget'&&p.p>=400)return false;
+  if(c==='events'&&!p.a.includes('Eventos'))return false;
+  if(c==='fav'&&!favs.includes(p.id))return false;
+  return true});
+ const s=S.sort;
+ if(s==='pa')r.sort((a,b)=>a.p-b.p);if(s==='pd')r.sort((a,b)=>b.p-a.p);
+ if(s==='g')r.sort((a,b)=>b.g-a.g);if(s==='b')r.sort((a,b)=>b.b-a.b);
+ return r}
+
+function card(p){
+ const fav=favs.includes(p.id);
+ return `<article class="card ${p.off?'unavail':''}" data-id="${p.id}">
+  <div class="ph" data-i="0">
+   <div class="track">${p.im.slice(0,6).map(i=>`<img loading="lazy" src="${img(i)}" alt="${p.n}">`).join('')}</div>
+   ${p.off?'<span class="badge off">No disponible</span>':p.front?'<span class="badge">Frente al mar</span>':''}
+   <button class="fav ${fav?'on':''}" data-fav="${p.id}" aria-label="Favorito">${fav?'♥':'♡'}</button>
+   <button class="nv p" data-step="-1">‹</button><button class="nv n" data-step="1">›</button>
+   <div class="dots">${p.im.slice(0,6).map((_,i)=>`<span class="${i?'':'on'}"></span>`).join('')}</div>
+   <span class="qv">Vista rápida · ${p.im.length} fotos</span>
+  </div>
+  <div class="info">
+   <div class="t"><span>${p.n}</span><span style="font-weight:500;font-size:13px">${p.tipo}</span></div>
+   <div class="l">${p.loc} · ${p.b} rec · ${p.g} huéspedes</div>
+   <div class="desc">${p.d}</div>
+   <div class="tags">${p.a.slice(0,6).map(a=>`<span class="tag">${a}</span>`).join('')}</div>
+   <div class="pr"><b>${money(p.p)} USD</b> noche · mín. ${p.min} noches</div>
+  </div></article>`}
+
+function table(r){
+ return `<div class="ovwrap"><table class="ov"><thead><tr><th></th><th data-s="rec">Propiedad</th><th>Zona</th><th data-s="b">Rec.</th><th>Baños</th><th data-s="g">Huésp.</th><th data-s="pa">Desde</th><th>Navidad</th><th>Mín.</th><th>Chef</th><th>Frente al mar</th></tr></thead><tbody>
+ ${r.map(p=>`<tr data-id="${p.id}"><td><img src="${img(p.im[0],160,120)}"></td><td><b>${p.n}</b>${p.off?' <span style="color:var(--sun);font-size:12px">· no disp.</span>':''}</td><td>${p.z}</td><td>${p.b}</td><td>${p.ba}</td><td>${p.g}</td><td><b>${money(p.p)}</b></td><td>${money(Math.max(...p.r.slice(1).map(x=>x[1])))}</td><td>${p.min}</td><td>${p.a.includes('Chef / cocinera')?'✓':'—'}</td><td>${p.front?'✓':'—'}</td></tr>`).join('')}
+ </tbody></table></div>`}
+
+function render(){
+ const r=filtered();
+ $('#count').textContent=`${r.length} ${r.length===1?'propiedad':'propiedades'} en Puerto Escondido`;
+ const out=$('#out');
+ if(!r.length){out.innerHTML='<div class="empty"><div style="font-size:40px">🏝️</div><p>No hay propiedades con esos filtros.</p><button id="reset">Quitar filtros</button></div>';$('#reset').onclick=clearAll;return}
+ out.innerHTML=S.view==='table'?table(r):`<div class="grid ${S.view==='list'?'list':''}">${r.map(card).join('')}</div>`;
+ let n=0;if(S.zone)n++;if(S.g)n++;if(S.b)n++;if(S.pmin>0||S.pmax<6000)n++;n+=S.am.length;if(!S.onlyAv)n++;
+ const fc=$('#fcount');fc.textContent=n;fc.style.display=n?'inline':'none';
+}
+
+function chips(){
+ const list=[...CHIPS];if(favs.length)list.push(['fav',`♥ Favoritas (${favs.length})`]);
+ $('#chips').innerHTML=list.map(([k,l])=>`<button class="chip ${S.chip===k?'on':''}" data-chip="${k}">${l}</button>`).join('')}
+
+// eventos tarjetas
+$('#out').addEventListener('click',e=>{
+ const fv=e.target.closest('[data-fav]');
+ if(fv){e.stopPropagation();const id=fv.dataset.fav;favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];try{localStorage.setItem('sr_favs',JSON.stringify(favs))}catch(e){}chips();render();return}
+ const st=e.target.closest('[data-step]');
+ if(st){e.stopPropagation();const ph=st.closest('.ph');const len=ph.querySelectorAll('img').length;let i=(+ph.dataset.i+ +st.dataset.step+len)%len;ph.dataset.i=i;ph.querySelector('.track').style.transform=`translateX(-${i*100}%)`;ph.querySelectorAll('.dots span').forEach((d,k)=>d.classList.toggle('on',k===i));return}
+ const th=e.target.closest('th[data-s]');if(th){S.sort=th.dataset.s;$('#sort').value=S.sort;render();return}
+ const c=e.target.closest('[data-id]');if(c)openDetail(c.dataset.id)});
+// swipe
+let sx=0;$('#out').addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+$('#out').addEventListener('touchend',e=>{const ph=e.target.closest('.ph');if(!ph)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)<40)return;ph.querySelector(`[data-step="${dx<0?1:-1}"]`).click()});
+$('#chips').onclick=e=>{const c=e.target.closest('[data-chip]');if(!c)return;S.chip=c.dataset.chip;chips();render()};
+document.querySelectorAll('.view button').forEach(b=>b.onclick=()=>{S.view=b.dataset.v;document.querySelectorAll('.view button').forEach(x=>x.classList.toggle('on',x===b));render()});
+$('#sort').onchange=e=>{S.sort=e.target.value;render()};
+$('#q').oninput=e=>{S.q=e.target.value;render()};
+$('#zoneSel').innerHTML+=ZONES.map(z=>`<option>${z}</option>`).join('');
+$('#zoneSel').onchange=e=>{S.zone=e.target.value;syncF();render()};
+
+// filtros
+function syncF(){
+ $('#pmin').value=S.pmin;$('#pmax').value=S.pmax;$('#prange').value=Math.min(S.pmax,2300);
+ $('#gv').textContent=S.g?S.g+'+':'Cualquiera';
+ $('#bseg').innerHTML=[0,3,4,5,6,8].map(n=>`<button class="${S.b===n?'on':''}" data-b="${n}">${n?n+'+':'Cualquiera'}</button>`).join('');
+ $('#zseg').innerHTML=['',...ZONES].map(z=>`<button class="${S.zone===z?'on':''}" data-z="${z}">${z||'Todas'}</button>`).join('');
+ $('#cks').innerHTML=AM.map(a=>`<label><input type="checkbox" value="${a}" ${S.am.includes(a)?'checked':''}> ${a}</label>`).join('');
+ $('#onlyAv').checked=S.onlyAv;$('#zoneSel').value=S.zone}
+$('#openF').onclick=()=>{syncF();$('#fScrim').classList.add('show')};
+$('#bseg').onclick=e=>{const b=e.target.closest('[data-b]');if(b){S.b=+b.dataset.b;syncF()}};
+$('#zseg').onclick=e=>{const b=e.target.closest('[data-z]');if(b){S.zone=b.dataset.z;syncF()}};
+document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{S.g=Math.max(0,Math.min(26,S.g+ +b.dataset.g*(S.g>=8?2:1)));syncF()});
+$('#prange').oninput=e=>{S.pmax=+e.target.value>=2300?6000:+e.target.value;$('#pmax').value=S.pmax};
+$('#pmin').oninput=e=>S.pmin=+e.target.value||0;$('#pmax').oninput=e=>S.pmax=+e.target.value||6000;
+$('#cks').onchange=()=>S.am=[...document.querySelectorAll('#cks input:checked')].map(i=>i.value);
+$('#onlyAv').onchange=e=>S.onlyAv=e.target.checked;
+function clearAll(){Object.assign(S,{q:'',zone:'',chip:'all',pmin:0,pmax:6000,g:0,b:0,am:[],onlyAv:true});$('#q').value='';syncF();chips();render()}
+$('#clr').onclick=clearAll;
+$('#apply').onclick=()=>{$('#fScrim').classList.remove('show');render()};
+document.querySelectorAll('.scrim').forEach(s=>s.addEventListener('click',e=>{if(e.target===s||e.target.closest('[data-close]'))s.classList.remove('show')}));
+
+// detalle
+function openDetail(id){
+ const p=P.find(x=>x.id===id);
+ $('#det').innerHTML=`
+ <div class="sh-h"><button data-close>×</button><span>${p.n}</span><button data-fav2="${p.id}" style="font-size:18px">${favs.includes(p.id)?'♥':'♡'}</button></div>
+ <div class="sh-b" style="padding:0">
+  <div style="position:relative"><div class="gal g5">${p.im.slice(0,5).map((i,k)=>`<img data-lb="${k}" src="${img(i,k?600:1200,k?400:800)}">`).join('')}</div><button class="allbtn" data-all>▦ Ver las ${p.im.length} fotos</button></div><div class="allph" id="allph"></div>
+  <div class="dgrid">
+   <div>
+    <h3>${p.n}</h3>
+    <div class="facts"><span>📍 ${p.loc}</span><span>🛏 ${p.b} recámaras</span><span>🛁 ${p.ba} baños</span><span>👥 hasta ${p.g}</span></div>
+    <p>${p.d}</p>
+    ${p.rooms?`<div class="sec"><h5>Dónde dormirás</h5><div class="rooms">${p.rooms.map((r,i)=>`<div class="room"><b>Recámara ${i+1}</b>${r}</div>`).join('')}</div></div>`:''}
+    <div class="sec"><h5>Lo que ofrece</h5><div class="am">${p.a.map(a=>`<span>${a}</span>`).join('')}</div></div>
+   </div>
+   <aside class="book">
+    <div><span class="big">${money(p.p)}</span> USD / noche</div>
+    <div class="small" style="margin-top:2px">Temporada estándar · mínimo ${p.min} noches</div>
+    <div class="rates">${p.r.map(r=>`<div><span>${r[0]}<br><small style="color:var(--mute)">mín. ${r[2]}</small></span><span>${money(r[1])}</span></div>`).join('')}</div>
+    ${p.off?'<div class="btn" style="background:#bbb;cursor:default">No disponible por ahora</div>':`<a class="btn sun" href="https://www.sunsetrealtypuerto.com/contctenos" target="_blank">Solicitar reserva</a>`}
+    <div class="small">${p.note||'Tarifas en USD por noche, sujetas a disponibilidad.'}</div>
+   </aside>
+  </div>
+ </div>`;
+ $('#dScrim').classList.add('show');$('#det .sh-b').scrollTop=0;
+ $('#det').onclick=e=>{
+  if(e.target.closest('[data-all]')){const a=$('#allph');if(!a.innerHTML)a.innerHTML=p.im.map((i,k)=>`<img loading="lazy" data-lb="${k}" src="${W}${i}/v1/fit/w_700,h_700,q_80,enc_auto/p.jpg">`).join('');a.classList.toggle('show');if(a.classList.contains('show'))a.scrollIntoView({behavior:'smooth'});return}
+  const l=e.target.closest('[data-lb]');if(l)openLB(p,+l.dataset.lb);
+  const f=e.target.closest('[data-fav2]');if(f){$('#out').querySelector(`[data-fav="${p.id}"]`)?.click()||toggleFav(p.id);f.textContent=favs.includes(p.id)?'♥':'♡'}}}
+function toggleFav(id){favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];try{localStorage.setItem('sr_favs',JSON.stringify(favs))}catch(e){}chips();render()}
+// lightbox
+let LB={p:null,i:0};
+function openLB(p,i){LB={p,i};showLB();$('#lb').classList.add('show')}
+function showLB(){$("#lb img").src=`${W}${LB.p.im[LB.i]}/v1/fit/w_1800,h_1400,q_85,enc_auto/p.jpg`;$('#lb .c').textContent=`${LB.i+1} / ${LB.p.im.length}`}
+$('#lb .x').onclick=()=>$('#lb').classList.remove('show');
+$('#lb .a').onclick=()=>{LB.i=(LB.i-1+LB.p.im.length)%LB.p.im.length;showLB()};
+$('#lb .b').onclick=()=>{LB.i=(LB.i+1)%LB.p.im.length;showLB()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#lb').classList.contains('show'))$('#lb').classList.remove('show');else document.querySelectorAll('.scrim').forEach(s=>s.classList.remove('show'))}
+ if($('#lb').classList.contains('show')){if(e.key==='ArrowLeft')$('#lb .a').click();if(e.key==='ArrowRight')$('#lb .b').click()}});
+
+P.forEach(p=>{if(GAL[p.id])p.im=GAL[p.id]});
+chips();syncF();render();
+</script>
+</body>
+</html>
